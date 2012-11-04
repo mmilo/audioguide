@@ -36,6 +36,7 @@
       useHTML5Audio: true,
       preferFlash: false,
       useFlashBlock: false,
+      debugMode: true,
       onready: function() {
         self.init();
       }
@@ -78,20 +79,17 @@
     var self = this;
     if (!this.opts.steps[step]) return;
     var id = name || this.opts.steps[step].name;
-    //var sound = soundManager.getSoundById(id);
-    var sound;
+    var sound = soundManager.getSoundById(id);
 
-    console.log(sound);
-
-  //   if (!sound) {
-  //     var url = this.opts.steps[step].url;
+    if (!sound) {
+      var url = this.opts.steps[step].url;
 
       sound = soundManager.createSound({
-        id: '1',
-        url: 'http://upload.wikimedia.org/wikipedia/commons/6/61/DescenteInfinie.ogg'
+        id: id,
+        url: url
       });
-  // }
-    sound.play(id);
+    }
+    sound.play({volume:this.opts.volume});
   };
 
   AudioGuide.prototype.previous = function() {
